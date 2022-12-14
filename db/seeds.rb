@@ -6,3 +6,28 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# require 'faker'
+puts "destroying previous seeds"
+
+List.destroy_all
+Movie.destroy_all
+Bookmark.destroy_all
+
+
+# require "json"
+require "open-uri"
+
+puts "creating seeds"
+
+url = "http://tmdb.lewagon.com/movie/top_rated"
+URI.open(url).read
+
+movies_api = JSON.parse(URI.open(url).read)
+
+puts "creating movies"
+
+movies_api= ["results"].each do |movie|
+  Movie.create(title:movie["original_title"], overview:movie["overview"], poster_url:"https://image.tmdb.org/t/p/w500/#{movie["poster_path"]}",rating:movie["vote_average"])
+end
+
+puts "movies generation finished !"
