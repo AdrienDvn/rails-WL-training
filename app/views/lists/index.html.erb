@@ -1,1 +1,15 @@
-<h1>hello from List#index</h1>
+
+<div class=container>
+
+<h1>Les meilleurs films de l'hiver</h1>
+
+<ul>
+  <% @lists.each do |list| %>
+    <%# <li><%= list.name%></li>
+    <li><%= link_to list.name, list_path(list.id)%></li>
+  <% end %>
+</ul>
+
+<%= link_to "Add list", new_list_path%>
+
+</div>

@@ -1,1 +1,12 @@
 <h1>hi from Bookmarks#new</h1>
+
+<ul>
+  <% @movies.each do |movie| %>
+    <%# <li><%= list.name%></li>
+    <li><%= link_to movie.name, movie_path(movie.id)%></li>
+  <% end %>
+</ul>
+
+<%= link_to "back to list", lists_path%>
+
+</div>
