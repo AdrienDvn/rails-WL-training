@@ -2,10 +2,15 @@
 <div class=container>
 
 <h1>hello from List#show</h1>
-
+ <h1><%= @list.name %></h1>
 <ul>
-  <% @Bookmarks.each do |bookmark| %>
-    <%# <li><%= list.name%></li>
+  <% @list.movies.each do |movie| %>
+  <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+  <%= movie.title %> <%= movie.rating %>
+  <%= movie.overview %>
+  <%= bookmark.comment %>
+  <%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
+    <%# <li><%= bookmark.name%></li>
     <li><%= link_to bookmark.comment, bookmark_path(bookmark.id)%></li>
   <% end %>
 </ul>
