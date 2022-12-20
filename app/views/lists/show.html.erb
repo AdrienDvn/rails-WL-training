@@ -3,12 +3,17 @@
 
 <h1>hello from List#show</h1>
  <h1><%= @list.name %></h1>
+ <%= pluralize(@list.movies.size, "movie") %>
+ <%= "You haven't saved any movies yet!" if @list.movies.empty? %>
 <ul>
   <% @list.movies.each do |movie| %>
   <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
   <%= movie.title %> <%= movie.rating %>
   <%= movie.overview %>
   <%= bookmark.comment %>
+  <%= link_to "add a movie", new_list_bookmark_path(bookmark)%>
+
+  
   <%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
     <%# <li><%= bookmark.name%></li>
     <li><%= link_to bookmark.comment, bookmark_path(bookmark.id)%></li>
